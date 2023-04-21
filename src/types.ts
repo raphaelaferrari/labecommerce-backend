@@ -1,3 +1,9 @@
+export enum categoryProduct {
+    BLUSA = "Blusa",
+    CALCA = "Calça",
+    SAPATO = "Sapato"
+}
+
 // É a pessoa cliente cadastrada.
 
 export type user = {
@@ -11,7 +17,7 @@ export type product = {
     id: string,
     name: string,
     price: number,
-    category: string
+    category: categoryProduct
 }
 
 // É a compra realizada por cliente.
