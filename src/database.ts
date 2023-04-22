@@ -16,13 +16,13 @@ export const users: user[] = [
 export const products: product[] =[
     {
         id: "p001",
-        name: "camisa preta da Nike",
+        name: "Cropped",
         price: 20.50,
         category: categoryProduct.BLUSA
     },
     {
         id: "p002",
-        name: "camisa branca simples",
+        name: "Camisa Unissex Estrelar",
         price: 15.50,
         category: categoryProduct.BLUSA
     }
