@@ -36,8 +36,11 @@ app.get("/products", (req: Request, res: Response) => {
 })
 
 app.get("/product/search", (req: Request, res: Response) => {
-    const q = req.query.q
-    res.status(200).send(q)
+    const q = req.query.q as string
+
+    const result = products.filter(product => product.name.toUpperCase().includes(q.toUpperCase())
+    )
+    res.status(200).send(result)
 })
 
 app.post('/users', (req: Request, res: Response) => {
@@ -93,4 +96,82 @@ app.post('/purchases', (req: Request, res: Response) => {
     purchases.push(newPurchase)
 
     res.status(201).send("Cadastrado com sucesso!")
+})
+
+app.get("/products/:id", (req: Request, res: Response) => {
+    const id = req.params.id as string
+
+    const result = products.filter((product) => { 
+        if (product.id === id) {
+            return "encontrado"
+        }
+    })
+
+    res.status(200).send(result);
+})
+
+app.get("/users/:id/purchases", (req: Request, res: Response) => {
+    const id = req.params.id as string;
+
+    const result = purchases.filter(purchase => purchase.userId.toUpperCase().includes(id.toUpperCase()))
+
+    res.status(200).send(result);
+})
+
+app.delete("/users/:id", (req: Request, res: Response) => {
+    const id = req.params.id as string;
+
+    const resultIndex = users.findIndex(user => user.id === id)
+
+    if (resultIndex >= 0) {
+        users.splice(resultIndex, 1)
+    }
+
+    res.status(200).send("User apagado com sucesso")
+})
+
+app.delete("/products/:id", (req: Request, res: Response) => {
+    const id = req.params.id as string;
+
+    const resultIndex = products.findIndex(product => product.id === id)
+
+    if (resultIndex >= 0) {
+        products.splice(resultIndex, 1)
+    }
+
+    res.status(200).send("Produto apagado com sucesso")
+})
+
+app.put("/users/:id", (req: Request, res: Response) => {
+    const id = req.params.id as string
+
+    const newEmail = req.body.email as string | undefined
+    const newPassword =  req.body.password as string | undefined
+
+    const user = users.find(user => user.id === id)
+
+    if (user) {
+        user.email = newEmail || user.email
+        user.password =  newPassword || user.password
+    }
+
+    res.status(200).send("Cadastro atualizado com sucesso")
+})
+
+app.put("/products/:id", (req: Request, res: Response) => {
+    const id = req.params.id as string
+
+    const newName = req.body.name as string | undefined
+    const newPrice =  req.body.price as number | undefined
+    const newCategory =  req.body.category as categoryProduct | undefined
+
+    const product = products.find(product => product.id === id)
+
+    if (product) {
+        product.name = newName || product.name
+        product.price =  newPrice || product.price
+        product.category =  newCategory || product.category
+    }
+
+    res.status(200).send("Produto atualizado com sucesso")
 })
