@@ -4,10 +4,14 @@ Labecommerce Backend se trata de um projeto onde foi desenvolvido uma API vincul
 # Os conteúdos abordados ao longo do projeto foram:
 
 -NodeJS
+
 -Typescript
 -Express
+
 -SQL e SQLite
+
 -Knex
+
 -Postman
 
 # Contém os seguintes Endpoints:
